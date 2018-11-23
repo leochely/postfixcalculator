@@ -13,16 +13,16 @@ let print_list f lst =
   print_elements lst;
   print_string "]";;
 
-print_list print_string p;;
+List.map (print_string) p;;
 
 let compute lst =
   let s = Stack.create () in
     Stack.push 0 s;
     let rec process_elements = function
       | [] -> Stack.pop s
-      | "x"::t -> let temp = Stack.pop s + Stack.pop s in Stack.push temp s; process_elements t
+      | "+"::t -> let temp = Stack.pop s + Stack.pop s in Stack.push temp s; process_elements t
       | "-"::t -> let temp = Stack.pop s - Stack.pop s in Stack.push temp s; process_elements t
       | "x"::t -> let temp = Stack.pop s * Stack.pop s in Stack.push temp s; process_elements t
       | "/"::t -> let temp = Stack.pop s / Stack.pop s in Stack.push temp s; process_elements t
-      | x::t -> Stack.push x s; process_elements t
+      | x::t -> Stack.push (int_of_string x) s; process_elements t
 in compute p;;
