@@ -13,7 +13,7 @@ let print_list f lst =
   print_elements lst;
   print_string "]";;
 
-List.map (print_string) p;;
+(*List.map (print_string) p;;*)
 
 let compute lst =
   let s = Stack.create () in
@@ -28,3 +28,12 @@ let compute lst =
     in process_elements lst;;
 
 compute p;;
+print_string "\n";;
+
+let in_channel = open_in;;
+
+while true do
+    let expression = (input_line in_channel);
+    compute (String.split_on_char ' ' expression);
+    print_string "\n"
+done;;
