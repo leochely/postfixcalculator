@@ -15,21 +15,24 @@ let compute lst =
       | "+"::t -> let temp = Stack.pop s + Stack.pop s in Stack.push temp s; process_elements t
       | "-"::t -> let temp = Stack.pop s - Stack.pop s in Stack.push temp s; process_elements t
       | "x"::t -> let temp = Stack.pop s * Stack.pop s in Stack.push temp s; process_elements t
+      | "*"::t -> let temp = Stack.pop s * Stack.pop s in Stack.push temp s; process_elements t
       | "/"::t -> let temp = Stack.pop s / Stack.pop s in Stack.push temp s; process_elements t
       | x::t -> Stack.push (int_of_string x) s; process_elements t
     in process_elements lst;;
 
-print_string "Welcome to the OCaml PostFix Calculator\n";;
-print_string "-----------------------------------------\n";;
-
 let quit = false;;
 
-while quit != true do
-    print_string "Input: ";
-    let expression = read_line ();
-    if expression == "quit" || exression == "q" then 
-        quit = true
-    else
-        compute (String.split_on_char ' ' expression);
-    print_string "\n";
-done;;
+print_string "Welcome to the OCaml PostFix Calculator\n";;
+print_string "Type quit or q to exit\n";;
+print_string "-----------------------------------------\nInput: ";;
+
+let rec until_quit e =
+    if (e = "quit" || e = "q") then (
+        print_string "EXITING CALCULATOR\n"
+    ) else (
+        compute (String.split_on_char ' ' e);
+        print_string "\nInput: ";
+        until_quit (read_line ());
+    );;
+
+until_quit (read_line ());;
