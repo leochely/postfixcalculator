@@ -30,9 +30,14 @@ let rec until_quit e =
     if (e = "quit" || e = "q") then (
         print_string "EXITING CALCULATOR\n"
     ) else (
-        compute (String.split_on_char ' ' e);
-        print_string "\nInput: ";
-        until_quit (read_line ());
+        try 
+            compute (String.split_on_char ' ' e);
+            print_string "\nInput: ";
+            until_quit (read_line ());
+        with _ ->  
+            print_string "Incorrect input";
+            print_string "\nInput: ";
+            until_quit (read_line ());
     );;
-
+    
 until_quit (read_line ());;
